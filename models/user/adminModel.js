@@ -16,6 +16,10 @@ const adminSchema = new Schema({
         type:String,
         require:true
     },
+    type:{
+        type:String,
+        default:"admin"
+    },
 
     tokens:[{type: Object}]
 }, {

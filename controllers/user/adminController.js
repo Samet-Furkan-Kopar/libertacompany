@@ -19,15 +19,16 @@ const registerAdmin = tryCatch(async (req, res) => {
 });
 //admin login giriş işlemlerini yapıyor
 const loginAdmin = tryCatch(async (req, res) => {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
-    const user = await Admin.findOne({ email });
+    const user = await Admin.findOne({ username:username });
+    console.log(user,"cc");
     let same = false;
     if (user) {
         same = await bcrypt.compare(password, user.password);
 
         if (same) {
-            const user = await Admin.findOne({ email }, "-password");
+            const user = await Admin.findOne({ username }, "-password");
             const token = await createToken(user._id);
             if (!token) {
                 throw new AppError("Failed to create token", 404);
@@ -53,10 +54,14 @@ const loginAdmin = tryCatch(async (req, res) => {
                 },
             });
         } else {
+            console.log("password not matched");
             throw new AppError("Passwords are not matched", 401);
         }
     } else {
-        throw new AppError("There is no such user", 401);
+        res.status(404).json({
+            succeded: false,
+            message: "User not found",
+        });
     }
 });
 //admin logout işlemini yapıyor
