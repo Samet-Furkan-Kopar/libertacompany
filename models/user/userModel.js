@@ -17,23 +17,20 @@ const userSchema = new Schema({
         type: String,
         require: true
     },
-    title: {
-        type: String,
-        require: true
-    },
-
+   
     image_url: {
         type: String,
         default:""
     },
-    userRole: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "user_role",
+    isPro:{
+        type:Boolean,
+        default:false
     },
-    type:{
-        type:String,
-        enum:["admin","user"]
-    },
+
+    // type:{
+    //     type:String,
+    //     enum:["admin","user"]
+    // },
     tokens:[{type: Object}]
 
 }, {

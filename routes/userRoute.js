@@ -9,7 +9,7 @@ import UserValidate from "../validations/userValidation.js"
 const router = express.Router()
 
 
-router.route("/user-register").post(Auth.authenticateUserAPIToken,FormData.uploadSettingImages,FormData.resizeImages,UserValidate.userCreateValidate,User.userRegister)
+router.route("/user-register").post(FormData.uploadSettingImages,FormData.resizeImages,UserValidate.userCreateValidate,User.userRegister)
 router.route("/admin-register").post(FormData.uploadSettingImages,UserValidate.userCreateValidate,User.doctorRegister)
 router.route("/login").post(FormData.uploadSettingImages,User.userLogin)
 // 

@@ -34,27 +34,28 @@ const userRegister = tryCatch(async (req, res) => {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
-        title: req.body.title,
-        image_url: req.body.profilePhoto,
-        type: "user",
+        // title: req.body.title,
+        // image_url: req.body.profilePhoto,
+        // type: "user",
     });
     if (!register) {
         return res.status(404).json({
             succeded: false,
-            //message: i18n.translate("USERS.USER_NOT_CREATED", lang),
+            message: "User not created"
         });
     }
     res.status(200).json({
         succeded: true,
         data: register,
+        message: "User successfully created"
 
         //message: i18n.translate("USERS.USER_CREATED", lang)
     });
 });
 const userLogin = tryCatch(async (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     const user = await User.findOne({
-        username,
+        email,
     });
 
     let same = false;
@@ -69,7 +70,7 @@ const userLogin = tryCatch(async (req, res) => {
     if (same) {
         const user = await User.findOne(
             {
-                username,
+                email,
             },
             "-password -token"
         );
@@ -98,7 +99,7 @@ const userLogin = tryCatch(async (req, res) => {
         });
         const users = await User.findOne(
             {
-                username,
+                email,
             },
             "-password -token -tokens"
         );
@@ -107,16 +108,16 @@ const userLogin = tryCatch(async (req, res) => {
             data: {
                 token,
                 user: users,
-                // message: i18n.translate("USERS.USER_SUCCESS_LOGIN", lang),
             },
+            message: "Login Successfull",
         });
     } else {
         res.status(200).json({
             succeded: true,
             data: {
-                message: "Şifreniz yanlış",
                 // message: i18n.translate("USERS.USER_SUCCESS_LOGIN", lang),
             },
+            message: "Şifreniz yanlış",
         });
     }
 });

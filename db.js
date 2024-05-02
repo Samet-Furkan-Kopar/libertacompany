@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const conn = () => {
     mongoose.connect(process.env.DB_URI,{
-        dbName :"liberta",
+        dbName :"text_project",
         useNewUrlParser:true,
         useUnifiedTopology:true, 
     }).then(()=>{
